@@ -1,19 +1,18 @@
 //Copyright (c) 2021. Ana Carolina Arellano Alvarez
 import Vuex, { Store } from "vuex";
 import Vue from "vue";
-import shop from "./server/api/shop";
-import { _products } from "./server/api/shop";
-import Axios from 'axios'
-import { Server } from "./server/Server"
+import shop from "./api/shop";
+import { _products } from "./api/shop";
+import Axios from "axios";
 
 Vue.use(Vuex, Axios);
-Axios.defaults.baseURL = 'http://localhost:3000'
+Axios.defaults.baseURL = "http://localhost:3000";
 
 export default new Vuex.Store({
   state: {
     products: [],
     cart: [],
-    checkoutStatus: null
+    checkoutStatus: null,
   },
 
   //Getters
@@ -52,7 +51,6 @@ export default new Vuex.Store({
 
   //actions
   actions: {
-    
     fetchProducts({ commit }) {
       return new Promise((resolve, reject) => {
         shop.getProducts((products) => {
@@ -91,10 +89,10 @@ export default new Vuex.Store({
         }
       );
     },
-    //send to server
-    submitSalesForm({state, commit}, newSale){
-    //  commit("addNewSale", newSale);
-    }
+    //call muttaion of new sale
+    submitSalesForm({ state, commit }, newSale) {
+      commit("addNewSale", newSale);
+    },
   },
 
   //mutations
@@ -129,13 +127,13 @@ export default new Vuex.Store({
     decrementProductInventory(state, productId) {
       const product = state.products.find((product) => product.id == productId);
       product.inventory--;
-      shop.saveProducts(state.products)
+      shop.saveProducts(state.products);
     },
 
     incrementProductInventory(state, productId) {
       const product = state.products.find((product) => product.id == productId);
       product.inventory++;
-      shop.saveProducts(state.products)
+      shop.saveProducts(state.products);
     },
 
     setCheckoutStatus(state, status) {
@@ -145,8 +143,11 @@ export default new Vuex.Store({
     emptyCart(state) {
       state.cart = [];
     },
-    addNewSale(state, newSale){
-      console.log(newSale)
-    }
+    //send to server
+    addNewSale(state, newSale) {
+      Axios.post("http://localhost:4001/sale", newSale).then((response) => {
+        alert("Data has been receives successfully");
+      });
+    },
   },
 });

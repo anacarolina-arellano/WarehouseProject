@@ -10,6 +10,9 @@ const Path = require('path')
 const HTTP = require('http')
 const FileSystem = require('fs')
 
+//import my route
+const routeSales = require('./Routes/sales')
+
 //const Result = require('../lib/result')
 
 //const lobby = require('../routes/lobby')
@@ -24,7 +27,7 @@ class Server {
 
         this.api = Express();
         this.router = Express.Router();
-
+        
         this.port = port;
 
         let corsOptions = {
@@ -42,6 +45,8 @@ class Server {
             .use( CORS( corsOptions )).options('/*', this.corsHandler )
            // .use('/api/lobby', lobby );
 
+           //routes go here
+           this.api.use("/sale", routeSales)
         this.run();
     }
 

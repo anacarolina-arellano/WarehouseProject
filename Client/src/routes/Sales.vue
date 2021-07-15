@@ -3,71 +3,72 @@
   <section class="sales-container">
     <div class="sales-form">
       <h2>Sales Form</h2>
-        <form>
-          <v-text-field
-            v-model="employeeName"
-            label="Employee's Name"
-          ></v-text-field>
-          <autocomplete></autocomplete>
+      <form>
+        <v-text-field
+          v-model="employeeName"
+          label="Employee's Name"
+          :rules="['Required']"
+        ></v-text-field>
+        <autocomplete></autocomplete>
 
+        <v-text-field
+          v-model="clientName"
+          label="Client's Name"
+          :rules="['Required']"
+        ></v-text-field>
+        <v-text-field
+          v-model="address"
+          label="Address"
+          :rules="['Required']"
+        ></v-text-field>
+        <v-text-field
+          v-model="phoneNumber"
+          label="Phone Number"
+          :rules="['Required']"
+        ></v-text-field>
+        <v-text-field v-model="email" label="E-mail"></v-text-field>
+        <h3>Products to be picked</h3>
+        <v-row class="my-row">
           <v-text-field
-            v-model="clientName"
-            label="Client's Name"
+            v-model="productId"
+            class="product"
+            label="Product Id"
           ></v-text-field>
           <v-text-field
-            v-model="address"
-            label="Address"
+            v-model="quantity"
+            class="product"
+            label="Quantity"
+          ></v-text-field>
+        </v-row>
+        <v-row class="my-row">
+          <v-text-field
+            v-model="productId2"
+            class="product"
+            label="Product Id"
           ></v-text-field>
           <v-text-field
-            v-model="phoneNumber"
-            label="Phone Number"
+            v-model="quantity2"
+            class="product"
+            label="Quantity"
+          ></v-text-field>
+        </v-row>
+        <v-row class="my-row">
+          <v-text-field
+            v-model="productId3"
+            class="product"
+            label="Product Id"
           ></v-text-field>
           <v-text-field
-            v-model="email"
-            label="E-mail"
+            v-model="quantity3"
+            class="product"
+            label="Quantity"
           ></v-text-field>
-          <h3>Products to be picked</h3>
-          <v-row class="my-row">
-            <v-text-field
-              v-model="productId"
-              class = "product"
-              label="Product Id"
-            ></v-text-field>
-            <v-text-field
-              v-model="quantity"
-              class = "product"
-              label="Quantity"
-            ></v-text-field>
-          </v-row>
-          <v-row class="my-row">
-            <v-text-field
-              v-model="productId2"
-              class = "product"
-              label="Product Id"
-            ></v-text-field>
-            <v-text-field
-              v-model="quantity2"
-              class = "product"
-              label="Quantity"
-            ></v-text-field>
-          </v-row>
-          <v-row class="my-row">
-            <v-text-field
-              v-model="productId3"
-              class = "product"
-              label="Product Id"
-            ></v-text-field>
-            <v-text-field
-              v-model="quantity3"
-              class = "product"
-              label="Quantity"
-            ></v-text-field>
-          </v-row>
-          <v-btn class="mr-4 my-btn" @click="submit">
-            Generate Fulfillment Order
-          </v-btn>
-          <v-btn @click="clear" class="my-btn"> clear </v-btn>
-        </form>
+        </v-row>
+        <v-btn class="mr-4 my-btn" @click="submit">
+          Generate Fulfillment Order
+        </v-btn>
+        <v-btn @click="clear" class="my-btn"> clear </v-btn>
+      </form>
     </div>
   </section>
 </template>
@@ -97,35 +98,54 @@ class Sales extends Controller {
   }
 
   submit() {
-    const newSale = { 
-      'employeeName': this.employeeName,
-      'clientName': this.clientName,
-      'address': this.address,
-      'phoneNumber': this.phoneNumber ,
-      'email': this.email,
-      'productId': this.productId,
-      'quantity': this.quantity,
-      'productId2': this.productId2,
-      'quantity2': this.quantity2,
-      'productId3': this.productId3,
-      'quantity3': this.quantity2,
+    //check that at least one product was added
+    if (
+      this.employeeName &&
+      this.clientName &&
+      this.address &&
+      this.phoneNumber &&
+      this.email
+    ) {
+      if (
+        (this.productId && this.quantity) ||
+        (this.productId2 && this.quantity2) ||
+        (this.productId3 && this.quantity3)
+      ) {
+        const newSale = {
+          employeeName: this.employeeName,
+          clientName: this.clientName,
+          address: this.address,
+          phoneNumber: this.phoneNumber,
+          email: this.email,
+          productId: this.productId,
+          quantity: this.quantity,
+          productId2: this.productId2,
+          quantity2: this.quantity2,
+          productId3: this.productId3,
+          quantity3: this.quantity3,
+        };
+        this.$store.dispatch("submitSalesForm", newSale);
+
+        this.clear();
+      } else {
+        alert("At least one product should be registered");
+      }
+    } else {
+      alert("Please fill the requiered fields");
     }
-    this.$store.dispatch("submitSalesForm", newSale);
-    alert("The product has been saved, you can see it in the customers page")
-    this.clear()
   }
   clear() {
-    this.employeeName = ""
-    this.clientName =  ""
-    this.address = ""
-    this.phoneNumber = ""
-    this.email = ""
-    this.productId = 0
-    this.quantity = 0
-    this.productId2 = 0
-    this.quantity2 = 0
-    this.productId3 = 0
-    this.quantity3 = 0
+    this.employeeName = "";
+    this.clientName = "";
+    this.address = "";
+    this.phoneNumber = "";
+    this.email = "";
+    this.productId = 0;
+    this.quantity = 0;
+    this.productId2 = 0;
+    this.quantity2 = 0;
+    this.productId3 = 0;
+    this.quantity3 = 0;
   }
 }
 export default new Sales("Sales");
@@ -149,14 +169,14 @@ h3 {
   margin-top: 40px;
   margin-bottom: 50px;
 }
-.my-row{
+.my-row {
   display: inline;
   flex-direction: row;
 }
-.product{
+.product {
   display: inline-block;
-  width:40%;
+  width: 40%;
   margin-left: 10px;
-  margin-right:10px;
+  margin-right: 10px;
 }
 </style>
