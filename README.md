@@ -35,11 +35,11 @@ This version of the Warehouse app that I developed during term 3 includes a loca
 
 #### **Working endpoint**
 --------
-The endpoint that is currently working is the one of 'sale'. To see how it works, go to http://localhost:4000/ while the client is running. In the main menu choose the role of "Sales"
+The endpoint that is currently working is the one of 'sale'. To see how it works, go to http://localhost:4000/ while the client is running. In the main menu choose the role of "Sales". Fill the 'Sales Form' and click "Generate Fulfillment Order".
+The information retrieved from the form will be sent from the Client to the Server. If the server receives the data it will send a confirmation message to the client and the client will print on screen that the information was sent successfully.
 
 ## Caveats
-With more time I would add more endpoints and I would store the data on the server and fetch it from there. Fill the 'Sales Form' and click "Generate Fulfillment Order".
-The information retrieved from the form will be sent from the Client to the Server. If the server receives the data it will send a confirmation message to the client and the client will print on screen that the information was sent successfully.
+With more time I would add more endpoints and I would store the data on the server and fetch it from there. 
 
 ## Built With
 * **Vue.js 2.0** - The web framework used.
