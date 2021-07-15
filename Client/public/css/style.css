@@ -1,0 +1,411 @@
+/**
+ * CSS Styles for VFS Demo App
+ *
+ * @Copyright 2014-2015, Vancouver Film School, In cooperation with Kibble Games Inc.
+ * @author: Scott Henshaw
+ * @Contributor: Clinton Ramonida
+ */
+
+/* DEFAULTS */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: white;
+    color: black;
+    font-family: 'Maven Pro', Helvetica, sans-serif;
+}
+
+input[type=button] {
+    background-color: black;
+    color: white;
+    font-family: 'Maven Pro', Helvetica, sans-serif;
+    font-size: 17px;
+    margin: 3px;
+    padding: 3px 8px;
+    border: 1px solid black; 
+}
+
+input[type=button]:hover {
+    background-color: gray;
+}
+
+input[type=button]:focus {
+    background-color: #D10034;
+    border: 1px solid black;
+}
+
+/* GRID FRAME/CONTAINER (PARENT) */
+.grid-frame {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-auto-rows: auto;
+    background-color: white;
+    color: black;
+    grid-template-areas: 
+    "headbar headbar headbar headbar headbar headbar headbar headbar headbar headbar" 
+    "sidecontent thecontent thecontent thecontent thecontent thecontent thecontent thecontent thecontent thecontent"
+    "footcontent footcontent footcontent footcontent footcontent footcontent footcontent footcontent footcontent footcontent" ;
+    justify-items: start;
+}
+
+/* GRID AREAS/ITEMS (CHILDREN) */
+.area {
+    /* border: 2px solid black; */ 
+}
+
+.grid-header {
+    grid-area: headbar;
+    z-index: 1000;
+    width: 100vw;
+    height: 120px; 
+}
+
+.grid-nav {
+    grid-area: navbar;
+}
+
+.grid-content {
+    grid-area: thecontent;
+    width: 100%;
+    height: 82vh;
+}
+
+.grid-side {
+    grid-area: sidecontent;
+    width: 12vw;
+    height: 82vh;
+}
+
+.grid-foot {
+    grid-area: footcontent;
+    width: 100vw;
+    height: 100px;
+}
+
+/* GRID CONTAINER CHILD (CHILD BUT A CONTAINER) */
+.grid-frame-child {
+    display: grid;
+    background: #FFFFFF;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    height: 100%;
+    width: 100%;
+}
+
+/* GRID AREA FOR "GRID CONTAINER CHILD" */
+.area-child{
+    /* border: 2px solid black; */ 
+}
+
+.grid-intro{
+    grid-column: 2/9;
+    grid-row: 2/3;
+}
+
+.grid-filter{
+    grid-column: 9/15;
+    grid-row: 2/3;
+    text-align: end;
+}
+
+.grid-tile{
+    grid-column: 2/15;
+    grid-row: 3/15;
+}
+
+
+/* FLEX CONTAINER (PARENT) */
+.flexbox {
+    display: flex;
+    background-color: rgb(241, 244, 247);
+    height: 100%;
+}
+
+/* FLEX ITEMS (CHILDREN) */
+.flexitem{
+    align-self: center;
+}
+
+
+
+/* header */
+.my-header {
+    background: #FFBD59; 
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.logo {
+    
+    background-image:url("../assets/mywh.png");
+    background-size:100% 100%;
+    height: 130px;
+    width: 130px;
+    margin-left: 3em;
+    cursor: pointer;
+}
+
+.title {
+    font-family: 'Raleway', Arial, Helvetica, sans-serif;
+}
+
+.search-bar{
+    color: white;
+    margin-right: 5em;
+    margin-top: 5em;
+    cursor: pointer;
+    visibility: hidden;
+}
+
+
+/* sidebar */
+.sidebar {
+    flex-direction: column;
+    background: #4c4c4c; 
+    box-shadow: inset -1px 0 2px 1px #222;
+}
+
+.side-item{
+    margin-top: 2em;
+    padding: 1em;
+}
+
+
+/* navigation bar */
+.menu{
+    background: rgba(0, 0, 0, 0);
+}
+
+.navbar{
+    margin-top: 2em;
+    width: 100%;
+    height: 100%;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    list-style-type: none;
+    
+}
+
+li {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+    color: indigo;
+    margin-bottom: 0.5em;
+   /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+li:hover {
+   /* background-color: #111;*/
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05), 0 5px 5px rgba(0,0,0,0.22);
+}
+
+li a {
+    display: block;
+    text-align: start;
+    text-decoration: none;
+    padding: 0.7em;
+}
+
+
+/* content */
+.content {
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    justify-content: space-evenly;
+    background: #FFFFFF;
+}
+.content-intro {
+    font-weight:bold; 
+}
+
+/* content tile cards style */
+.tile{
+    background: #D10034; 
+    width: 350px;
+    height: 315px;
+    margin: 15px;
+    /* border: 1px solid #4c4c4c;  */
+    border-radius: 2px; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.tile:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.card-frame-link{
+    position: relative;
+}
+
+.card-frame-link:hover .card-overlay-link{
+    opacity: 1;
+    background: hsla(50, 0%, 0%, 0.6);
+    transition: 0.3s opacity ease-out; 
+    cursor: pointer;
+}
+
+.card-overlay-link{
+    display: flex;
+    position: absolute;
+    z-index: 1000;
+    width: 350px;
+    height: 315px;
+    opacity: 0;
+    transition: 0.3s opacity ease-in;
+}
+
+.card-overlay-link .overlay-text {
+    font-family: 'Maven Pro', Helvetica, sans-serif;
+    font-size: 2em;
+    color: white;
+    align-self: center;
+    margin: 0 auto;
+    pointer-events: none;
+}
+
+.card-title {
+    display: flex;
+    justify-content: center;
+    height: 60px;
+}
+
+.card-title h3{
+    text-align: center;
+    align-self: center;
+    padding-top: 1em;
+}
+
+.card-thumb  {
+    max-width: 320px;
+    max-height: 230px;
+    background-size: cover;
+    margin: 0 auto;
+}
+
+.card-iframe {
+    width: 1920px;
+    height: 1080px;
+    transform-origin: 0 0;
+    transform: scale(0.168);
+    border: none;
+    overflow: hidden;
+}
+
+.card-author h4{
+    text-align: center;
+}
+
+
+/* footer */
+.footer {
+    flex-direction: column;
+    justify-content: center;
+    background: #232222;
+    box-shadow: 0px -1px 0 -1px #222;
+}
+
+
+
+/* Button Styles */
+.buttons {
+    justify-content: center;
+    align-items: center;
+}
+
+.btn{
+    background-color: white;
+    color: black;
+    height: 40px;
+    width: 80px;
+    margin: 2px;
+    border: 2px solid black; 
+}
+
+.btn:hover {
+    background-color: #555555;
+    color: white;
+}
+
+
+
+/* Heading Styles */
+h1 {
+    color: black;
+}
+
+h2 {
+    color: black;
+    font-family: 'Roboto', Helvetica, sans-serif;
+    margin: 3px 0px 3px 0px;
+}
+
+h3{ 
+    color: black;
+    font-family: 'Raleway', Helvetica, sans-serif;
+}
+
+h4{
+    color: black;
+    font-family: 'Raleway', Helvetica, sans-serif;
+}
+
+
+
+/* Vue components Styles */
+.vue-main-rootcomponent{
+    background-color: white;
+    color: black;
+}
+
+.vue-component{
+    /* border: 2px solid black;  */ 
+}
+
+.vue-sub-component{
+    /* border: 2px solid black; */ 
+}
+ 
+
+
+/* vue transition animations */
+/* style: name="fade" */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 1.0s;
+}
+.fade-enter, .fade-leave-to{
+    opacity: 0;
+}
+
+/* style: name="slide-fade" */
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+    transition: all .3s ease;
+}
+.slide-fade-leave-active {
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+.default_thumbnail {
+    background-image: url( "../assets/default_thumbnail.png" );
+}

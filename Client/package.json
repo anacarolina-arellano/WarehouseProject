@@ -1,0 +1,72 @@
+{
+  "name": "vue-template",
+  "version": "1.1.0",
+  "private": true,
+  "scripts": {
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "client": "vue-cli-service serve --port 4000",
+    "server": "node src/server/Server",
+    "start": "vue-cli-service serve --open"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bootstrap-vue": "^2.21.2",
+    "core-js": "^3.12.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase": "^8.7.1",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "mdbvue": "6.7.2",
+    "nodemon": "^2.0.12",
+    "path": "^0.12.7",
+    "register-service-worker": "^1.7.2",
+    "vee-validate": "^3.4.6",
+    "vue": "^2.6.12",
+    "vue-router": "^3.5.1",
+    "vuefire": "^2.2.5",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.11.3",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-eslint": "^3.1.1",
+    "@vue/cli-plugin-pwa": "^4.5.13",
+    "@vue/cli-service": "^3.12.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "lint-staged": "^9.4.3",
+    "vue-cli-plugin-mdb": "~2.1.0",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "arch": "any",
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
+}
