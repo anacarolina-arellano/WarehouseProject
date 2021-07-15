@@ -8,8 +8,7 @@ This version of the Warehouse app that I developed during term 3 includes a loca
 
 #### **Download/Install**
 ---------
- - Browse to demo link
- - [Download Zip](https://github.com/anacarolina-arellano/WarehouseProject)
+ - Browse the demo link: [https://github.com/anacarolina-arellano/WarehouseProject]
  - Clone the 'main' branch of repository into your machine
  - From the terminal go to the location where the repo was cloned
  - Change directory to locate yourself in the folder 'WarehouseProject'
