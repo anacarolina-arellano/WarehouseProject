@@ -4,8 +4,23 @@ import Vue from "vue";
 import shop from "./api/shop";
 import { _products } from "./api/shop";
 import Axios from "axios";
+import Firebase from "firebase";
+import VueFire from "vuefire";
 
-Vue.use(Vuex, Axios);
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyCax50cGuVzw79GIAUG8D-05iu5Vui4Po4",
+  authDomain: "warehouseproject-98791.firebaseapp.com",
+  projectId: "warehouseproject-98791",
+  storageBucket: "warehouseproject-98791.appspot.com",
+  messagingSenderId: "645551647408",
+  appId: "1:645551647408:web:0599ee2e98506d6fa76975",
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+Vue.use(Vuex, Axios, VueFire, Firebase);
 Axios.defaults.baseURL = "http://localhost:3000";
 
 export default new Vuex.Store({
