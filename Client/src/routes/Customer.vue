@@ -47,7 +47,7 @@ class Customer extends Controller {
   constructor(name, subComponentList = []) {
     super(name, subComponentList);
     this.vm = {
-      loading: false,
+      //loading: false,
     };
     this.components = {
       //include components to be used
@@ -75,8 +75,8 @@ class Customer extends Controller {
   }
 
   onCreated() {
-    this.loading = true;
-    this.fetchProducts().then(() => (this.loading = false));
+    //this.loading = true;
+    //this.fetchProducts().then(() => (this.loading = false));
   }
 }
 

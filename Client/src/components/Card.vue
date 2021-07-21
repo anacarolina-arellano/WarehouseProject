@@ -3,7 +3,6 @@
 //template of the cards that hold the information of each product in  the customer page
 <template>
   <v-card
-    :loading="loading"
     class="mx-auto my-12 my-card"
     max-width="374"
   >
@@ -77,7 +76,7 @@
           category: String,
           description: String,
           imageName: String,
-          id: Number
+          id: String
         }
         this.methods = {
           addProductToCart(product) {

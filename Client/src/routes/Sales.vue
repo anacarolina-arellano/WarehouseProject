@@ -149,7 +149,11 @@ class Sales extends Controller {
   }
 }
 export default new Sales("Sales");
+
 </script>
+
+
+
 <style scoped>
 h2 {
   text-align: center;

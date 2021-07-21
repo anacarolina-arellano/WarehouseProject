@@ -11,7 +11,7 @@
           required
         ></v-text-field>
         <v-text-field
-          v-model="productName"
+          v-model="nameProduct"
           label="Item's Name"
           required
         ></v-text-field>
@@ -59,8 +59,8 @@
         constructor( name, subComponentList = []) {
           super( name, subComponentList )
           this.vm = {
-            id: 0,
-            productName: '',
+            id: "0",
+            nameProduct: '',
             inventory: '',
             category: '',
             description: '',
@@ -72,7 +72,7 @@
         submit () {
           const newProduct = { 
             'id': this.id,
-            'productName': this.productName,
+            'nameProduct': this.nameProduct,
             'price': this.price,
             'inventory': this.inventory ,
             'category': this.category,
@@ -84,7 +84,7 @@
           this.clear()
         }
         clear () {
-          this.id = 0
+          this.id = "0"
           this.productName = ''
           this.inventory = 0
           this.category = ''
