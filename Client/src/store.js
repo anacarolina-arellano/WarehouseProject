@@ -2,8 +2,6 @@
 require("firebase/firestore");
 import Vuex, { Store } from "vuex";
 import Vue from "vue";
-import shop from "./api/shop";
-//import { _products } from "./api/shop";
 import Axios from "axios";
 import Firebase from "firebase";
 import VueFire from "vuefire";
@@ -74,11 +72,11 @@ export default new Vuex.Store({
           querySnapshot.docs.forEach((doc) => {
             let currentID = doc.id;
             let appObj = { ...doc.data(), ["id"]: currentID };
-            commit("setProducts", appObj)
+            commit("setProducts", appObj);
           });
         });
     },
-    addProduct({commit }, product) {
+    addProduct({ commit }, product) {
       commit("addProduct", product);
     },
     addProductToCart({ state, getters, commit }, productId) {
@@ -97,16 +95,8 @@ export default new Vuex.Store({
       commit("delProductFromCart", productId);
     },
     checkout({ state, commit }) {
-      shop.buyProducts(
-        state.cart,
-        () => {
-          commit("emptyCart");
-          commit("setCheckoutStatus", "success");
-        },
-        () => {
-          commit("setCheckoutStatus", "fail");
-        }
-      );
+      commit("emptyCart");
+      commit("setCheckoutStatus", "success");
     },
     //call muttaion of new sale
     submitSalesForm({ state, commit }, newSale) {
@@ -119,11 +109,11 @@ export default new Vuex.Store({
     //add new element to products
     addProduct(state, product) {
       //shop.saveProducts([...state.products, product], () => {
-       // state.products.push(product);
+      // state.products.push(product);
       //});
     },
     setProducts(state, product) {
-      state.products.push(product)
+      state.products.push(product);
     },
     pushProductToCart(state, productId) {
       state.cart.push({
@@ -146,13 +136,13 @@ export default new Vuex.Store({
     decrementProductInventory(state, productId) {
       const product = state.products.find((product) => product.id == productId);
       product.inventory--;
-      shop.saveProducts(state.products);
+      //shop.saveProducts(state.products);
     },
 
     incrementProductInventory(state, productId) {
       const product = state.products.find((product) => product.id == productId);
       product.inventory++;
-      shop.saveProducts(state.products);
+      //shop.saveProducts(state.products);
     },
 
     setCheckoutStatus(state, status) {

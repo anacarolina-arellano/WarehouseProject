@@ -15,10 +15,10 @@
                     {{product.quantity}}
                     <v-btn class="inside-btn" @click="addProductToCart(product.id)">+</v-btn>
                 </td>
-                <td>{{product.price | currency}}</td>
+                <td>{{product.price.toFixed(2)}}</td>
             </tr>
         </table>
-        <p class="total">Total: {{total | currency}}</p>
+        <p class="total">Total: {{total.toFixed(2)}}</p>
         <button class= "my-button" @click="checkout">Checkout</button>
         <p v-if="checkOutStatus">{{checkoutStatus}}</p>
     </div>
