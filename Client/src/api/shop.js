@@ -29,7 +29,7 @@ export const _products = [
     nameProduct: "White top",
     price: 19.99,
     inventory: 5,
-    category: "tops",
+    category: "Tops",
     description:
       "White top that is perfect for the summer, it is made of good materials and fits sizes S and M.",
     imageName: "top.jpeg",
@@ -39,13 +39,13 @@ export const _products = [
 export default {
   getProducts(cb) {
     setTimeout(() => {
-      const productsInLocalStorage = window.localStorage.getItem("products");
+      /*const productsInLocalStorage = window.localStorage.getItem("products");
       if (productsInLocalStorage == null) {
         window.localStorage.setItem("products", JSON.stringify(_products))
         cb(_products);
       } else {
         cb(JSON.parse(productsInLocalStorage));
-      }
+      }*/
     }, 2000);
   },
 
@@ -53,7 +53,7 @@ export default {
   {
     setTimeout(() => {
       window.localStorage.setItem("products", JSON.stringify(newProducts))
-      cb()
+     // cb()
     }, 1000)
   },
 

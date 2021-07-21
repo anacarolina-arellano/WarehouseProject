@@ -1,8 +1,9 @@
 //Copyright (c) 2021. Ana Carolina Arellano Alvarez
+require("firebase/firestore");
 import Vuex, { Store } from "vuex";
 import Vue from "vue";
 import shop from "./api/shop";
-import { _products } from "./api/shop";
+//import { _products } from "./api/shop";
 import Axios from "axios";
 import Firebase from "firebase";
 import VueFire from "vuefire";
@@ -18,8 +19,8 @@ var firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+Firebase.initializeApp(firebaseConfig);
+const db = Firebase.firestore();
 Vue.use(Vuex, Axios, VueFire, Firebase);
 Axios.defaults.baseURL = "http://localhost:3000";
 
@@ -67,12 +68,15 @@ export default new Vuex.Store({
   //actions
   actions: {
     fetchProducts({ commit }) {
-      return new Promise((resolve, reject) => {
-        shop.getProducts((products) => {
-          commit("setProducts", products);
-          resolve();
+      db.collection("shop")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.docs.forEach((doc) => {
+            let currentID = doc.id;
+            let appObj = { ...doc.data(), ["id"]: currentID };
+            commit("setProducts", appObj)
+          });
         });
-      });
     },
     addProduct({ state, getters, commit }, product) {
       commit("addProduct", product);
@@ -118,8 +122,8 @@ export default new Vuex.Store({
         state.products.push(product);
       });
     },
-    setProducts(state, products) {
-      state.products = products;
+    setProducts(state, product) {
+      state.products.push(product)
     },
     pushProductToCart(state, productId) {
       state.cart.push({
@@ -158,11 +162,11 @@ export default new Vuex.Store({
     emptyCart(state) {
       state.cart = [];
     },
-    //send to server
+    //send to firebase
     addNewSale(state, newSale) {
-      Axios.post("http://localhost:4001/sale", newSale).then((response) => {
-        alert("Data has been receives successfully");
-      });
+      //Axios.post("http://localhost:4001/sale", newSale).then((response) => {
+      //alert("Data has been receives successfully");
+      //});
     },
   },
 });
