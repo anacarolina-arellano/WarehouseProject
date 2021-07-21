@@ -156,11 +156,13 @@ export default new Vuex.Store({
     emptyCart(state) {
       state.cart = [];
     },
-    //send to firebase
+    //add new sale to the sales collection in firebase
     addNewSale(state, newSale) {
-      //Axios.post("http://localhost:4001/sale", newSale).then((response) => {
-      //alert("Data has been receives successfully");
-      //});
+      db.collection("sales")
+        .add(newSale)
+        .then(() => {
+          alert("The sale was successfully added");
+        });
     },
   },
 });
