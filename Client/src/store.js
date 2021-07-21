@@ -78,7 +78,7 @@ export default new Vuex.Store({
           });
         });
     },
-    addProduct({ state, getters, commit }, product) {
+    addProduct({commit }, product) {
       commit("addProduct", product);
     },
     addProductToCart({ state, getters, commit }, productId) {
@@ -118,9 +118,9 @@ export default new Vuex.Store({
   mutations: {
     //add new element to products
     addProduct(state, product) {
-      shop.saveProducts([...state.products, product], () => {
-        state.products.push(product);
-      });
+      //shop.saveProducts([...state.products, product], () => {
+       // state.products.push(product);
+      //});
     },
     setProducts(state, product) {
       state.products.push(product)

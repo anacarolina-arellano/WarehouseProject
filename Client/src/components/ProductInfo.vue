@@ -59,7 +59,7 @@
         constructor( name, subComponentList = []) {
           super( name, subComponentList )
           this.vm = {
-            id: 0,
+            id: "0",
             productName: '',
             inventory: '',
             category: '',
@@ -84,7 +84,7 @@
           this.clear()
         }
         clear () {
-          this.id = 0
+          this.id = "0"
           this.productName = ''
           this.inventory = 0
           this.category = ''
