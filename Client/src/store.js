@@ -1,8 +1,7 @@
 //Copyright (c) 2021. Ana Carolina Arellano Alvarez
+require("firebase/firestore");
 import Vuex, { Store } from "vuex";
 import Vue from "vue";
-import shop from "./api/shop";
-import { _products } from "./api/shop";
 import Axios from "axios";
 import Firebase from "firebase";
 import VueFire from "vuefire";
@@ -18,8 +17,8 @@ var firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+Firebase.initializeApp(firebaseConfig);
+const db = Firebase.firestore();
 Vue.use(Vuex, Axios, VueFire, Firebase);
 Axios.defaults.baseURL = "http://localhost:3000";
 
@@ -66,15 +65,19 @@ export default new Vuex.Store({
 
   //actions
   actions: {
+    //fecth products from shop collection in firebase
     fetchProducts({ commit }) {
-      return new Promise((resolve, reject) => {
-        shop.getProducts((products) => {
-          commit("setProducts", products);
-          resolve();
+      db.collection("shop")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.docs.forEach((doc) => {
+            let currentID = doc.id;
+            let appObj = { ...doc.data(), ["id"]: currentID };
+            commit("setProducts", appObj);
+          });
         });
-      });
     },
-    addProduct({ state, getters, commit }, product) {
+    addProduct({ commit }, product) {
       commit("addProduct", product);
     },
     addProductToCart({ state, getters, commit }, productId) {
@@ -93,16 +96,8 @@ export default new Vuex.Store({
       commit("delProductFromCart", productId);
     },
     checkout({ state, commit }) {
-      shop.buyProducts(
-        state.cart,
-        () => {
-          commit("emptyCart");
-          commit("setCheckoutStatus", "success");
-        },
-        () => {
-          commit("setCheckoutStatus", "fail");
-        }
-      );
+      commit("emptyCart");
+      commit("setCheckoutStatus", "success");
     },
     //call muttaion of new sale
     submitSalesForm({ state, commit }, newSale) {
@@ -112,14 +107,17 @@ export default new Vuex.Store({
 
   //mutations
   mutations: {
-    //add new element to products
+    //add new element to shop collection in firebase
     addProduct(state, product) {
-      shop.saveProducts([...state.products, product], () => {
-        state.products.push(product);
-      });
+      db.collection("shop")
+        .doc(product.id)
+        .set(product)
+        .then(() => {
+          //console.log("user updated!");
+        });
     },
-    setProducts(state, products) {
-      state.products = products;
+    setProducts(state, product) {
+      state.products.push(product);
     },
     pushProductToCart(state, productId) {
       state.cart.push({
@@ -142,13 +140,13 @@ export default new Vuex.Store({
     decrementProductInventory(state, productId) {
       const product = state.products.find((product) => product.id == productId);
       product.inventory--;
-      shop.saveProducts(state.products);
+      //shop.saveProducts(state.products);
     },
 
     incrementProductInventory(state, productId) {
       const product = state.products.find((product) => product.id == productId);
       product.inventory++;
-      shop.saveProducts(state.products);
+      //shop.saveProducts(state.products);
     },
 
     setCheckoutStatus(state, status) {
@@ -158,11 +156,11 @@ export default new Vuex.Store({
     emptyCart(state) {
       state.cart = [];
     },
-    //send to server
+    //send to firebase
     addNewSale(state, newSale) {
-      Axios.post("http://localhost:4001/sale", newSale).then((response) => {
-        alert("Data has been receives successfully");
-      });
+      //Axios.post("http://localhost:4001/sale", newSale).then((response) => {
+      //alert("Data has been receives successfully");
+      //});
     },
   },
 });
