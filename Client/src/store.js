@@ -65,6 +65,7 @@ export default new Vuex.Store({
 
   //actions
   actions: {
+    //fecth products from shop collection in firebase
     fetchProducts({ commit }) {
       db.collection("shop")
         .get()
@@ -106,11 +107,14 @@ export default new Vuex.Store({
 
   //mutations
   mutations: {
-    //add new element to products
+    //add new element to shop collection in firebase
     addProduct(state, product) {
-      //shop.saveProducts([...state.products, product], () => {
-      // state.products.push(product);
-      //});
+      db.collection("shop")
+        .doc(product.id)
+        .set(product)
+        .then(() => {
+          //console.log("user updated!");
+        });
     },
     setProducts(state, product) {
       state.products.push(product);
